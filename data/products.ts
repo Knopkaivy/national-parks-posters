@@ -144,7 +144,7 @@ export const products: Product[] = [
       "Soft deckled-edge border (not trimmed to bleed)",
     ],
     images: [
-      { url: U("1710974269621-a26223f9449e"), alt: "Watercolor painting of Yosemite Valley" },
+      { url: U("1560310948-c87704426162"), alt: "Watercolor painting of Yosemite Valley" },
     ],
     sizes: ["8x10", "11x14", "16x20"],
     finishes: ["matte"],
@@ -210,7 +210,7 @@ export const products: Product[] = [
       "Ships flat in rigid mailer up to 11×14",
     ],
     images: [
-      { url: U("1754956042669-c6ab61ab2afb"), alt: "Vintage-style poster of Old Faithful geyser" },
+      { url: U("1586968332704-0160550f3ec1"), alt: "Vintage-style poster of Old Faithful geyser" },
     ],
     sizes: ["8x10", "11x14", "16x20", "18x24"],
     finishes: ["matte"],
@@ -241,7 +241,7 @@ export const products: Product[] = [
       "Ships flat in rigid mailer up to 11×14",
     ],
     images: [
-      { url: U("1575101570364-dc6527be1a1b"), alt: "Minimalist bison silhouette poster, Yellowstone" },
+      { url: U("1596918638939-cf4d365b6e03"), alt: "Minimalist bison silhouette poster, Yellowstone" },
     ],
     sizes: ["8x10", "11x14", "16x20"],
     finishes: ["matte"],
@@ -272,8 +272,8 @@ export const products: Product[] = [
       "Wide-format print capability up to 24×36",
     ],
     images: [
-      { url: U("1527489377706-5bf97e608852"), alt: "Grand Canyon South Rim at sunrise" },
-      { url: U("1575408264798-b50b252d6261"), alt: "Grand Canyon layered rock formations at dawn" },
+      { url: U("1596433853251-12aa68b860f0"), alt: "Grand Canyon South Rim at sunrise" },
+      { url: U("1596433853251-12aa68b860f0"), alt: "Grand Canyon layered rock formations at dawn" },
     ],
     sizes: ["8x10", "11x14", "16x20", "18x24", "24x36"],
     finishes: ["matte", "luster"],
@@ -337,8 +337,8 @@ export const products: Product[] = [
       "Printed on 300gsm cotton rag",
     ],
     images: [
-      { url: U("1508739773434-c26b3d09e071"), alt: "Hikers in The Narrows slot canyon, Zion" },
-      { url: U("1563299796-17328cb8df97"), alt: "Virgin River winding through Zion's Narrows" },
+      { url: U("1605588861095-4aae655e9906"), alt: "Hikers in The Narrows slot canyon, Zion" },
+      { url: U("1605588861095-4aae655e9906"), alt: "Virgin River winding through Zion's Narrows" },
     ],
     sizes: ["8x10", "11x14", "16x20", "18x24", "24x36"],
     finishes: ["matte", "luster"],
@@ -371,7 +371,7 @@ export const products: Product[] = [
       "Ships flat in rigid mailer up to 11×14",
     ],
     images: [
-      { url: U("1506905925346-21bda4d32df4"), alt: "Minimalist poster of Angels Landing, Zion" },
+      { url: U("1596910826615-e84c94ea92b7"), alt: "Minimalist poster of Angels Landing, Zion" },
     ],
     sizes: ["8x10", "11x14", "16x20"],
     finishes: ["matte"],
@@ -434,7 +434,7 @@ export const products: Product[] = [
       "New to the collection — limited initial run",
     ],
     images: [
-      { url: U("1501357094177-994229dd1062"), alt: "Vintage travel poster of Glacier National Park" },
+      { url: U("1599883617830-751287e2a87e"), alt: "Vintage travel poster of Glacier National Park" },
     ],
     sizes: ["8x10", "11x14", "16x20"],
     finishes: ["matte"],
@@ -466,8 +466,7 @@ export const products: Product[] = [
       "Signed edition available on request",
     ],
     images: [
-      { url: U("1613812795593-6704f9394493"), alt: "Delicate Arch with Milky Way, Arches National Park" },
-      { url: U("1598928272600-9de4c7d5f96e"), alt: "Red rock landscape near Arches at night" },
+      { url: U("1617051571090-85766fa13621"), alt: "Delicate Arch with Milky Way, Arches National Park" },
     ],
     sizes: ["8x10", "11x14", "16x20", "18x24", "24x36"],
     finishes: ["matte", "luster"],
@@ -501,7 +500,7 @@ export const products: Product[] = [
       "Designed as a triptych — same size across all three",
     ],
     images: [
-      { url: U("1501258338179-b25f87809429"), alt: "Three arch silhouettes, minimalist triptych poster set" },
+      { url: U("1720986314926-063d9dd2bf28"), alt: "Three arch silhouettes, minimalist triptych poster set" },
     ],
     sizes: ["8x10", "11x14"],
     finishes: ["matte"],
@@ -531,7 +530,7 @@ export const products: Product[] = [
       "Matte finish recommended — preserves the subtle green tonal range",
     ],
     images: [
-      { url: U("1592288801240-7b18bb06e94f"), alt: "Hoh Rain Forest, Olympic National Park" },
+      { url: U("1628425192226-1c55c960a68d"), alt: "Hoh Rain Forest, Olympic National Park" },
     ],
     sizes: ["8x10", "11x14", "16x20", "18x24"],
     finishes: ["matte", "luster"],
@@ -564,7 +563,7 @@ export const products: Product[] = [
       "Warm amber tones sing in glossy or luster finish",
     ],
     images: [
-      { url: U("1509316785289-025f5b846b35"), alt: "Cadillac Mountain fall foliage, Acadia National Park" },
+      { url: U("1609989290336-6bda5a061fff"), alt: "Cadillac Mountain fall foliage, Acadia National Park" },
     ],
     sizes: ["8x10", "11x14", "16x20", "18x24"],
     finishes: ["matte", "luster", "glossy"],
@@ -632,7 +631,7 @@ export const products: Product[] = [
       "Ships rolled in protective tube within 3–5 business days",
     ],
     images: [
-      { url: U("1508739773434-c26b3d09e071"), alt: "Morning fog over Great Smoky Mountains ridgelines" },
+      { url: U("1608135372855-71a5d80ff2ec"), alt: "Morning fog over Great Smoky Mountains ridgelines" },
     ],
     sizes: ["8x10", "11x14", "16x20", "18x24"],
     finishes: ["matte"],

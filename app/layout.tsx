@@ -36,6 +36,7 @@ export default function RootLayout({
       className={`${inter.variable} ${playfair.variable}`} suppressHydrationWarning
     >
       <body className="min-h-screen bg-stone-50 text-bark-900 antialiased">
+        <Toaster position="bottom-right"/>
         <Suspense fallback={null} >
           <Navbar/>
         </Suspense>
