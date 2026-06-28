@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import { Toaster } from "sonner";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import CartDrawer from "@/components/CartDrawer";
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from "@/constants";
 import "./globals.css";
 import { Suspense } from "react";
@@ -36,9 +37,10 @@ export default function RootLayout({
       className={`${inter.variable} ${playfair.variable}`} suppressHydrationWarning
     >
       <body className="min-h-screen bg-stone-50 text-bark-900 antialiased">
-        <Toaster position="bottom-right"/>
+        <Toaster position="bottom-left"/>
         <Suspense fallback={null} >
           <Navbar/>
+          <CartDrawer/>
         </Suspense>
         <main id="main-content" className="flex-1">
           {children}

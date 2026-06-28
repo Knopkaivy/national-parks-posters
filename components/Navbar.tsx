@@ -16,11 +16,12 @@ const NAV_LINKS = [
   { href: "/?style=watercolor",  label: "Watercolor"  },
 ] as const;
 
-export function Navbar(){
+export default function Navbar(){
     const pathname = usePathname();
     const searchParams = useSearchParams();
     const currentPath = `${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`;
-    const totalItems = useCartStore(s => s.totalItems);
+    const totalItems = useCartStore(state => state.totalItems);
+    const openCart = useCartStore(state => state.openCart);
     const [mobileOpen, setMobileOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [badgePulse, setBadgePulse] = useState(false);
@@ -90,14 +91,17 @@ export function Navbar(){
                     </ul>
 
                     <div className="flex items-center-gap-2">
-                        <Link href={ROUTES.cart} className='relative flex items-center justify-center w-10 h-10 rounded-md text-bark-700 hover:bg-stone-200 transition-colors focus-visible:ring-2 focus-visible:ring-moss-400 focus-visible:outline-none' >
+                        <button 
+                        className='relative flex items-center justify-center w-10 h-10 rounded-md text-bark-700 hover:bg-stone-200 transition-colors'
+                        aria-label={`Cart - ${totalItems} items`}
+                        onClick={openCart} >
                             <ShoppingCart size={20} strokeWidth={1.75} />
                             {totalItems > 0 && (
                                 <span className={`absolute -top-0.5 -right-0.5 min-w-[1.125rem] flex items-center justify-center rounded-full bg-sandstone-600 text-white text-[10px] font-bold leaning-none px-1 ${badgePulse ? 'car-badge-pulse' : ''}`} aria-hidden='true' >
                                     {totalItems > 99 ? '99+' : totalItems}
                                 </span>
                             )}
-                        </Link>
+                        </button>
 
                         {/* MOBILE MENU TOGGLE */}
 

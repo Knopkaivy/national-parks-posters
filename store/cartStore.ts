@@ -9,6 +9,9 @@ interface CartStore extends Cart {
     removeItem: (productId: string, size: string, finish: string) => void;
     updateQty: (productId: string, size: string, finish: string, qty: number) => void;
     clearCart: () => void;
+    isCartOpen: boolean;
+    openCart: () => void;
+    closeCart: () => void;
 }
 
 const itemKey = (productId: string, size: string, finish: string) => {
@@ -64,6 +67,9 @@ export const useCartStore = create<CartStore>()(
             clearCart(){
                 set({items: [], totalItems: 0, totalPrice: 0});
             },
+            isCartOpen: false,
+            openCart: ()=> set({isCartOpen: true}),
+            closeCart: () => set({isCartOpen: false}),
         }),
         {
             name: CART_STORAGE_KEY,

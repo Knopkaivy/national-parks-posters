@@ -4,7 +4,11 @@ import Link from 'next/link';
 import { useCartStore } from "@/store/cartStore";
 import {FLAT_SHIPPING_RATE, FREE_SHIPPING_THRESHOLD, ROUTES} from '@/constants';
 
-export default function OrderSummary(){
+interface OrderSummaryProps {
+    variant: 'page' | 'drawer'
+}
+
+export default function OrderSummary({variant = 'page'}: OrderSummaryProps){
     const totalPrice = useCartStore(state => state.totalPrice);
     const remaining = FREE_SHIPPING_THRESHOLD - totalPrice;
     const hasFreeShipping = totalPrice >= FREE_SHIPPING_THRESHOLD;
@@ -55,8 +59,15 @@ export default function OrderSummary(){
             )}
 
             <div className="flex flex-col gap-2">
-                <Link href={ROUTES.checkout} className='btn-primary w-full justify-center py-3' >Proceed to check out</Link>
-                <Link href={ROUTES.home} className='btn-ghost w-full justify-center' >Continue shopping</Link>
+                {variant === 'drawer' && (
+                    <Link href={ROUTES.cart} className='btn-primary w-full justify-center py-3' >Go to cart</Link>
+                )}
+                {variant === 'page' && (
+                    <>
+                        <Link href={ROUTES.checkout} className='btn-primary w-full justify-center py-3' >Proceed to check out</Link>
+                        <Link href={ROUTES.home} className='btn-ghost w-full justify-center' >Continue shopping</Link>
+                    </>
+                )}
             </div>
         </div>
     )
