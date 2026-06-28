@@ -46,7 +46,7 @@ export default async function ProductPage({params}: PageProps) {
                     {/* IMAGE */}
                     <div className="bg-white shadow-lg p-4">
                         <div className="relative aspect-[2/3]">
-                            <Image src={product.images[0].url} alt={product.images[0].alt} fill sizes="(max-width: 1024px) 100vw, 50 vw" className="object-cover" priority />
+                            <Image src={product.images[0].url} alt={product.images[0].alt} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" priority />
                         </div>
                     </div>
                     {/* DETAILS */}
