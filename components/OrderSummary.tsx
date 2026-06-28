@@ -5,11 +5,12 @@ import { useCartStore } from "@/store/cartStore";
 import {FLAT_SHIPPING_RATE, FREE_SHIPPING_THRESHOLD, ROUTES} from '@/constants';
 
 interface OrderSummaryProps {
-    variant: 'page' | 'drawer'
+    variant: 'page' | 'drawer' | 'checkout'
 }
 
 export default function OrderSummary({variant = 'page'}: OrderSummaryProps){
     const totalPrice = useCartStore(state => state.totalPrice);
+    const closeCart = useCartStore(state => state.closeCart);
     const remaining = FREE_SHIPPING_THRESHOLD - totalPrice;
     const hasFreeShipping = totalPrice >= FREE_SHIPPING_THRESHOLD;
 
@@ -40,7 +41,7 @@ export default function OrderSummary({variant = 'page'}: OrderSummaryProps){
                 </div>
             </div>
             {/* FREE SHIPPING PROGRESS */}
-            {!hasFreeShipping && (
+            {!hasFreeShipping && variant !== 'checkout' && (
                 <div className="space-y-1.5">
                     <p className="text-xs text-bark-500">
                         Add{" "}
@@ -54,19 +55,22 @@ export default function OrderSummary({variant = 'page'}: OrderSummaryProps){
                     </div>
                 </div>
             )}
-            {hasFreeShipping && (
+            {hasFreeShipping && variant !== 'checkout' && (
                 <p className="text-xs text-moss-600 font-medium">You've unlocked free shipping!</p>
             )}
 
             <div className="flex flex-col gap-2">
                 {variant === 'drawer' && (
-                    <Link href={ROUTES.cart} className='btn-primary w-full justify-center py-3' >Go to cart</Link>
+                    <Link href={ROUTES.cart} onClick={closeCart} className='btn-primary w-full justify-center py-3' >Go to cart</Link>
                 )}
                 {variant === 'page' && (
                     <>
                         <Link href={ROUTES.checkout} className='btn-primary w-full justify-center py-3' >Proceed to check out</Link>
                         <Link href={ROUTES.home} className='btn-ghost w-full justify-center' >Continue shopping</Link>
                     </>
+                )}
+                {variant === 'checkout' &&(
+                    <Link href={ROUTES.cart} className='btn-primary w-full justify-center py-3' >Back to cart</Link>
                 )}
             </div>
         </div>

@@ -1,17 +1,11 @@
 'use client'
 
-import { useEffect } from "react";
 import CartLineItem from "@/components/CartLineItem";
 import OrderSummary from "@/components/OrderSummary";
 import { useCartStore } from "@/store/cartStore"
 
 export default function Cart(){
     const items = useCartStore(state => state.items);
-    const closeCart = useCartStore(state => state.closeCart);
-
-    useEffect(()=>{
-        closeCart();
-    }, []);
 
     return (
         <div className="page-container p-4 md:py-12">
