@@ -2,7 +2,7 @@ import {create} from 'zustand';
 import {persist} from 'zustand/middleware';
 
 import type { CartItem, Cart } from '@/data/types';
-import { CART_STORAGE_KEY, MAX_QUANTITY_PER_ITEM } from '@/constants';
+import { CART_STORAGE_KEY, FLAT_SHIPPING_RATE, FREE_SHIPPING_THRESHOLD, MAX_QUANTITY_PER_ITEM } from '@/constants';
 
 interface CartStore extends Cart {
     addItem: (item: Omit<CartItem, "quantity">) => void;
@@ -12,6 +12,8 @@ interface CartStore extends Cart {
     isCartOpen: boolean;
     openCart: () => void;
     closeCart: () => void;
+    shippingCost: number;
+    totalWithShipping: number;
 }
 
 const itemKey = (productId: string, size: string, finish: string) => {
@@ -19,9 +21,16 @@ const itemKey = (productId: string, size: string, finish: string) => {
 }
 
 const computeTotals = (items: CartItem[]) =>{
+    const totalItems = items.reduce((sum, i) => sum + i.quantity, 0);
+    const totalPrice = +items.reduce((sum, i) => sum + i.price*i.quantity, 0).toFixed(2);
+    const shippingCost = totalPrice >= FREE_SHIPPING_THRESHOLD ? 0 : FLAT_SHIPPING_RATE;
+    const totalWithShipping = +(totalPrice + shippingCost).toFixed(2);
+
     return {
-        totalItems: items.reduce((sum, i) => sum + i.quantity, 0),
-        totalPrice: +items.reduce((sum, i) => sum + i.price*i.quantity, 0).toFixed(2),
+        totalItems,
+        totalPrice,
+        shippingCost,
+        totalWithShipping,
     };
 }
 
@@ -31,6 +40,8 @@ export const useCartStore = create<CartStore>()(
             items: [],
             totalItems: 0,
             totalPrice: 0,
+            shippingCost: 0,
+            totalWithShipping: 0,
             addItem(incoming){
                 const items = get().items;
                 const key = itemKey(incoming.productId, incoming.size, incoming.finish);
@@ -79,6 +90,8 @@ export const useCartStore = create<CartStore>()(
                     const totals = computeTotals(state.items);
                     state.totalItems = totals.totalItems;
                     state.totalPrice = totals.totalPrice;
+                    state.shippingCost = totals.shippingCost;
+                    state.totalWithShipping = totals.totalWithShipping;
                 }
             },
         }

@@ -2,12 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { Elements } from "@stripe/react-stripe-js";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
 import { stripePromise } from "@/lib/stripe-client";
 import { useCartStore } from "@/store/cartStore";
-import {ROUTES} from '@/constants';
 import CheckoutForm from "@/components/CheckoutForm";
 import OrderSummary from "@/components/OrderSummary";
 
@@ -18,13 +15,6 @@ export default function CheckoutPage(){
 
     const [clientSecret, setClientSecret] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
-
-    // REDIRECT TO CART ON EMPTY
-    useEffect(() => {
-        if(items.length === 0){
-            router.replace(ROUTES.cart);
-        }
-    }, [items.length]);
 
     // FETCH CLIENT SECRET
     useEffect(() => {

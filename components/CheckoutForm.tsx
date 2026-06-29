@@ -21,15 +21,53 @@ interface FormData{
 
 export default function CheckoutForm(){
     const {register, handleSubmit, formState: { errors }} = useForm<FormData>();
-  const stripe = useStripe();
-  const elements = useElements();
-  const router = useRouter();
-  const totalPrice = useCartStore(state => state.totalPrice);
-  const clearCart = useCartStore(state => state.clearCart);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [stripeError, setStripeError] = useState<string | null>(null);
+    const stripe = useStripe();
+    const elements = useElements();
+    const router = useRouter();
+    const totalWithShipping = useCartStore(state => state.totalWithShipping);
+    const clearCart = useCartStore(state => state.clearCart);
+    const [isProcessing, setIsProcessing] = useState(false);
+    const [stripeError, setStripeError] = useState<string | null>(null);
 
-  const onSubmit = handleSubmit((data) => console.log(data))
+    const onSubmit = handleSubmit(async (data) => {
+        if(!stripe || !elements) return;
+
+        setIsProcessing(true);
+        setStripeError(null);
+
+        const {error, paymentIntent} = await stripe.confirmPayment({
+            elements,
+            redirect: 'if_required',
+            confirmParams: {
+                payment_method_data: {
+                    billing_details: {
+                        name: `${data.firstName} ${data.lastName}`,
+                        email: data.email,
+                        address: {
+                            line1: data.addressOne,
+                            line2: data.addressTwo,
+                            city: data.city,
+                            state: data.state,
+                            postal_code: data.zip,
+                            country: 'US',
+                        },
+                    },
+                },
+            },
+        });
+
+        if(error){
+            setStripeError(error.message ?? 'Payment failed. Please try again.');
+            setIsProcessing(false);
+            return;
+        }
+
+        if(paymentIntent?.status === 'succeeded'){
+            clearCart();
+            toast.success(TOAST.orderSuccess);
+            router.push(ROUTES.order(paymentIntent.id));
+        }
+    });
 
     return (
         <form onSubmit={onSubmit} className="space-y-8" >
@@ -210,7 +248,13 @@ export default function CheckoutForm(){
             <section className="space-y-4">
                 <h2 className="font-display text-xl text-bark-900" >Payment</h2>
                 <div className="rounded border border-stone-300 p-4 bg-white">
-                    <PaymentElement/>
+                    <PaymentElement   
+                    options={{
+                        wallets: {
+                        applePay:  'never',
+                        googlePay: 'never',
+                        }
+                    }}/>
                 </div>
             </section>
             {stripeError && (
@@ -222,7 +266,7 @@ export default function CheckoutForm(){
             type="submit"
             disabled={!stripe || !elements || isProcessing}
             className="btn-primary w-full py-3 text-base disabled:opacty-50 disabled:cursor-not-allowed" >
-                {isProcessing ? 'Processing ...' : `Pay $${totalPrice.toFixed(2)}`}
+                {isProcessing ? 'Processing ...' : `Pay $${totalWithShipping.toFixed(2)}`}
             </button>
         </form>
     )

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useCartStore } from "@/store/cartStore";
-import {FLAT_SHIPPING_RATE, FREE_SHIPPING_THRESHOLD, ROUTES} from '@/constants';
+import {FREE_SHIPPING_THRESHOLD, ROUTES} from '@/constants';
 
 interface OrderSummaryProps {
     variant: 'page' | 'drawer' | 'checkout'
@@ -10,9 +10,10 @@ interface OrderSummaryProps {
 
 export default function OrderSummary({variant = 'page'}: OrderSummaryProps){
     const totalPrice = useCartStore(state => state.totalPrice);
+    const shippingCost = useCartStore(state => state.shippingCost);
+    const totalWithShipping = useCartStore(state => state.totalWithShipping);
     const closeCart = useCartStore(state => state.closeCart);
     const remaining = FREE_SHIPPING_THRESHOLD - totalPrice;
-    const hasFreeShipping = totalPrice >= FREE_SHIPPING_THRESHOLD;
 
     return (
         <div className='bg-stone-100 rounded-lg p-6 flex flex-col gap-5' >
@@ -26,22 +27,22 @@ export default function OrderSummary({variant = 'page'}: OrderSummaryProps){
                 <div className="flex justify-between text-bark-500">
                     <span>Shipping</span>
                     <span className="font-mono tabular-nums">
-                        {hasFreeShipping ? (
+                        {shippingCost === 0 ? (
                             <span className='text-moss-600 font-medium'>Free</span>
                         ) : (
-                            `$${FLAT_SHIPPING_RATE.toFixed(2)}`
+                            `$${shippingCost.toFixed(2)}`
                         )}
                     </span>
                 </div>
                 <div className="flex justify-between font-semibold text-bark-900 pt-2 border-t border-stone-300">
                     <span>Total</span>
                     <span className="font-mono tabular-nums">
-                        ${hasFreeShipping ? totalPrice.toFixed(2) : (totalPrice + FLAT_SHIPPING_RATE).toFixed(2)}
+                        ${totalWithShipping.toFixed(2)}
                     </span>
                 </div>
             </div>
             {/* FREE SHIPPING PROGRESS */}
-            {!hasFreeShipping && variant !== 'checkout' && (
+            {shippingCost !== 0 && variant !== 'checkout' && (
                 <div className="space-y-1.5">
                     <p className="text-xs text-bark-500">
                         Add{" "}
@@ -55,7 +56,7 @@ export default function OrderSummary({variant = 'page'}: OrderSummaryProps){
                     </div>
                 </div>
             )}
-            {hasFreeShipping && variant !== 'checkout' && (
+            {shippingCost === 0 && variant !== 'checkout' && (
                 <p className="text-xs text-moss-600 font-medium">You've unlocked free shipping!</p>
             )}
 
