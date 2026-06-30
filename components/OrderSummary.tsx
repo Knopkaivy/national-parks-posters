@@ -5,7 +5,7 @@ import { useCartStore } from "@/store/cartStore";
 import {FREE_SHIPPING_THRESHOLD, ROUTES} from '@/constants';
 
 interface OrderSummaryProps {
-    variant: 'page' | 'drawer' | 'checkout'
+    variant: 'page' | 'drawer' | 'checkout' | 'order'
 }
 
 export default function OrderSummary({variant = 'page'}: OrderSummaryProps){
@@ -42,7 +42,7 @@ export default function OrderSummary({variant = 'page'}: OrderSummaryProps){
                 </div>
             </div>
             {/* FREE SHIPPING PROGRESS */}
-            {shippingCost !== 0 && variant !== 'checkout' && (
+            {shippingCost !== 0 && (variant === 'page' || variant === 'drawer') && (
                 <div className="space-y-1.5">
                     <p className="text-xs text-bark-500">
                         Add{" "}
@@ -56,7 +56,7 @@ export default function OrderSummary({variant = 'page'}: OrderSummaryProps){
                     </div>
                 </div>
             )}
-            {shippingCost === 0 && variant !== 'checkout' && (
+            {shippingCost === 0 && (variant === 'page' || variant === 'drawer') && (
                 <p className="text-xs text-moss-600 font-medium">You've unlocked free shipping!</p>
             )}
 

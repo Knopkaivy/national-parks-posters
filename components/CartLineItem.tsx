@@ -37,7 +37,7 @@ export default function CartLineItem({item}: CartLineItemProps){
                         <X size={14} strokeWidth={2}/>
                     </button>
                 </div>
-                <p className="text-xs text-bark-400 capitalize">{SIZE_LABELS[item.size]} - {item.finish}</p>
+                <p className="text-xs text-bark-400 capitalize">{SIZE_LABELS[item.size]} · {item.finish}</p>
                 {/* QTY CONTROLS */}
                 <div className="flex items-center justify-between mt-auto">
                     <div className="flex items-center border border-stone-300 rounded">

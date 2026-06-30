@@ -43,11 +43,6 @@ const VALID_STYLE_IDS: StyleId[] = [
   "photography", "vintage", "minimalist", "watercolor",
 ];
 
-// ── Unsplash photo IDs ─────────────────────────────────────
-// Using stable Unsplash photo IDs so images don't shuffle.
-// URL pattern: https://images.unsplash.com/photo-{ID}?auto=format&fit=crop&w=800&q=80
-// Replace with your own Unsplash API key + search for production.
-
 const U = (id: string, w = 800) =>
   `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`;
 

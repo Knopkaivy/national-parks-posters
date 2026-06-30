@@ -9,7 +9,6 @@ import CheckoutForm from "@/components/CheckoutForm";
 import OrderSummary from "@/components/OrderSummary";
 
 export default function CheckoutPage(){
-    const router = useRouter();
     const items = useCartStore(state => state.items);
     const totalPrice = useCartStore(state => state.totalPrice);
 

@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import {toast} from 'sonner';
 import { useCartStore } from "@/store/cartStore";
+import { useOrderStore } from "@/store/orderStore";
 import {ROUTES, TOAST} from '@/constants'
 
 interface FormData{
@@ -24,8 +25,12 @@ export default function CheckoutForm(){
     const stripe = useStripe();
     const elements = useElements();
     const router = useRouter();
+    const items = useCartStore(state => state.items);
+    const totalPrice = useCartStore(state => state.totalPrice);
+    const shippingCost = useCartStore(state => state.shippingCost);
     const totalWithShipping = useCartStore(state => state.totalWithShipping);
     const clearCart = useCartStore(state => state.clearCart);
+    const setOrder = useOrderStore(state => state.setOrder);
     const [isProcessing, setIsProcessing] = useState(false);
     const [stripeError, setStripeError] = useState<string | null>(null);
 
@@ -63,6 +68,17 @@ export default function CheckoutForm(){
         }
 
         if(paymentIntent?.status === 'succeeded'){
+            setOrder({
+                id: paymentIntent.id,
+                items: [...items],
+                total: totalPrice,
+                shipping: shippingCost,
+                totalWithShipping,
+                email: data.email,
+                firstName: data.firstName,
+                lastName: data.lastName,
+                createdAt: new Date().toISOString(),
+            })
             clearCart();
             toast.success(TOAST.orderSuccess);
             router.push(ROUTES.order(paymentIntent.id));

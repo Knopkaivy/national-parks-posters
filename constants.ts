@@ -12,7 +12,8 @@ export const TAX_RATE                = 0.08;    // 8% — update per jurisdictio
 
 // ── Cart ──────────────────────────────────────────────────
 export const MAX_QUANTITY_PER_ITEM = 10;
-export const CART_STORAGE_KEY      = "np-poster-cart"; // Zustand persist key
+export const CART_STORAGE_KEY      = "np-poster-cart";
+export const ORDER_STORAGE_KEY      = "np-poster-order";
 
 // ── Sort options ──────────────────────────────────────────
 export const SORT_OPTIONS = [

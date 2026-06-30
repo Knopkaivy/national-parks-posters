@@ -64,3 +64,15 @@ export interface Cart {
   totalItems: number;
   totalPrice: number;
 }
+
+export interface Order{
+    id: string,
+    items: CartItem[],
+    total: number,
+    shipping: number;
+    totalWithShipping: number;
+    email: string,
+    firstName: string,
+    lastName: string,
+    createdAt: string,
+}
