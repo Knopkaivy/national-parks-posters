@@ -16,6 +16,14 @@ export default function CartLineItem({item}: CartLineItemProps){
     const removeItem = useCartStore(state => state.removeItem)
     const lineTotal = (item.quantity * item.price).toFixed(2);
 
+    const handleUpdateQty = () =>{
+        if(item.quantity > 1){
+            updateQty(item.productId, item.size, item.finish, item.quantity - 1);
+        } else {
+            removeItem(item.productId, item.size, item.finish);
+        }
+    }
+
     return (
         <li className="flex gap-4 py-5" >
             {/* THUMBNAIL */}
@@ -42,7 +50,7 @@ export default function CartLineItem({item}: CartLineItemProps){
                 <div className="flex items-center justify-between mt-auto">
                     <div className="flex items-center border border-stone-300 rounded">
                         <button type="button"
-                        onClick={()=>updateQty(item.productId, item.size, item.finish, item.quantity - 1)}
+                        onClick={handleUpdateQty}
                         className="px-2.5 py-1.5 tet-bark-600 hover:text-bark-900 disavled:opacity-30 disabled:cursor-not-allowed transition-colors focus-visible:ring-2 focus-visible:ring-moss-400 focus-visible:outline-none"
                         aria-label="Decrease quantity" >
                             <Minus size={12} strokeWidth={2.5} />

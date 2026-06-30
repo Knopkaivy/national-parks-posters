@@ -1,11 +1,23 @@
 'use client'
 
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import CartLineItem from "@/components/CartLineItem";
 import OrderSummary from "@/components/OrderSummary";
-import { useCartStore } from "@/store/cartStore"
+import { useCartStore } from "@/store/cartStore";
+import {ROUTES} from "@/constants";
 
 export default function Cart(){
+    const router = useRouter();
     const items = useCartStore(state => state.items);
+    const totalItems = useCartStore(state => state.totalItems);
+    const hasHydrated = useCartStore(state => state.hasHydrated);
+
+    useEffect(() => {
+        if(hasHydrated && totalItems === 0){
+            router.push(ROUTES.home);
+        }
+    }, [hasHydrated, totalItems])
 
     return (
         <div className="page-container py-8 md:py-12">

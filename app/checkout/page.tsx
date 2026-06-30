@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { Elements } from "@stripe/react-stripe-js";
-import { useRouter } from "next/navigation";
 import { stripePromise } from "@/lib/stripe-client";
 import { useCartStore } from "@/store/cartStore";
 import CheckoutForm from "@/components/CheckoutForm";
@@ -11,32 +10,36 @@ import OrderSummary from "@/components/OrderSummary";
 export default function CheckoutPage(){
     const items = useCartStore(state => state.items);
     const totalPrice = useCartStore(state => state.totalPrice);
+    const hasHydrated = useCartStore(state => state.hasHydrated);
 
     const [clientSecret, setClientSecret] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
 
     // FETCH CLIENT SECRET
     useEffect(() => {
-        if(items.length === 0) return;
+        if(hasHydrated){
 
-        const createIntent = async () => {
-            try {
-                const res = await fetch('/api/create-payment-intent', {
-                    method: 'POST',
-                    headers: { "Content-Type": "application/json"},
-                    body: JSON.stringify({totalPrice}),
-                });
-
-                if(!res.ok) throw new Error('Failed to initialize payment');
-
-                const data = await res.json();
-                setClientSecret(data.clientSecret);
-            } catch(error){
-                setError('Something went wrong. Please go back and try again.')
+            if(items.length === 0) return;
+    
+            const createIntent = async () => {
+                try {
+                    const res = await fetch('/api/create-payment-intent', {
+                        method: 'POST',
+                        headers: { "Content-Type": "application/json"},
+                        body: JSON.stringify({totalPrice}),
+                    });
+    
+                    if(!res.ok) throw new Error('Failed to initialize payment');
+    
+                    const data = await res.json();
+                    setClientSecret(data.clientSecret);
+                } catch(error){
+                    setError('Something went wrong. Please go back and try again.')
+                }
             }
+            createIntent();
         }
-        createIntent();
-    }, []);
+    }, [hasHydrated]);
 
     return (
         <div className="page-container py-8 md:py-12">

@@ -14,6 +14,8 @@ interface CartStore extends Cart {
     closeCart: () => void;
     shippingCost: number;
     totalWithShipping: number;
+    hasHydrated: boolean;
+    setHasHydrated: (value: boolean) => void;
 }
 
 const itemKey = (productId: string, size: string, finish: string) => {
@@ -42,6 +44,8 @@ export const useCartStore = create<CartStore>()(
             totalPrice: 0,
             shippingCost: 0,
             totalWithShipping: 0,
+            hasHydrated: false,
+            setHasHydrated: (value) => set({hasHydrated: value}),
             addItem(incoming){
                 const items = get().items;
                 const key = itemKey(incoming.productId, incoming.size, incoming.finish);
@@ -92,6 +96,7 @@ export const useCartStore = create<CartStore>()(
                     state.totalPrice = totals.totalPrice;
                     state.shippingCost = totals.shippingCost;
                     state.totalWithShipping = totals.totalWithShipping;
+                    state.setHasHydrated(true);
                 }
             },
         }
