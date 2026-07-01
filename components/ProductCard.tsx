@@ -13,7 +13,7 @@ export default function ProductCard({product}: ProductCardProps){
   const isBestseller = tags.includes("bestseller");
     return (
         <Link href={ROUTES.product(slug)} >
-            <div className="flex flex-col p-12">
+            <div className="flex flex-col p-8 md:p-12 lg:p-6 xl:p-12">
                 <div className="bg-white shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out p-3 mb-14 md:mb-16">
                     <div className="relative aspect-[2/3] overflow-hidden hover:opacity-90 transition-opacity duration-300 ease-in-out">
                         <Image src={images[0].url} alt={images[0].alt} fill sizes="(max-width:640px) 50vw, 25vw" className="object-cover" />

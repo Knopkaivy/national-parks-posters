@@ -35,7 +35,10 @@
 
   --font-body:    var(--font-inter);
   --font-display: var(--font-playfair);
+
+  --page-padding-x: 1rem;
 }
+
 
 @media (min-width: 640px) {
   :root { --page-padding-x: 2rem; }

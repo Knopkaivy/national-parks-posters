@@ -137,18 +137,19 @@ export default function Navbar(){
                         })}
                     </ul>
                 </nav>
-                
-                <div className="p-4 border-t border-stone-200">
-                    <Link href={ROUTES.cart} className='btn-primary w-full' >
-                        <ShoppingCart size={16}/>
-                        View cart
-                        {totalItems > 0 && (
-                            <span className='ml-auto rounded-full bg-sandstone-600 px-2 py-0.5 text-xs font-bold' >
-                                {totalItems}
-                            </span>
-                        )}
-                    </Link>
-                </div>
+                {totalItems > 0 && (
+                    <div className="p-4 border-t border-stone-200">
+                        <Link href={ROUTES.cart} className='btn-primary w-full' >
+                            <ShoppingCart size={16}/>
+                            View cart
+                            {totalItems > 0 && (
+                                <span className='ml-auto rounded-full bg-sandstone-600 px-2 py-0.5 text-xs font-bold' >
+                                    {totalItems}
+                                </span>
+                            )}
+                        </Link>
+                    </div>
+                )}
             </div>
         </>
     )

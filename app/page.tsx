@@ -31,7 +31,7 @@ export default async function HomePage({searchParams}: HomePageProps){
   return (
     <div className="page-container py-8 md:py-12">
       {/* PAGE HEADING */}
-      <div className="mb-8 px-2">
+      <div className="mb-8">
         <h1 className="text-3xl md:text-4xl text-bark-900">
           National Park Prints
         </h1>
